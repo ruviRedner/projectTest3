@@ -8,6 +8,10 @@
     <script src="/js/app.js" defer></script>
 </head>
 <body>
+    <div class="title">
+        <h2>NBA Fantasy Y 2014-2024</h2>
+    </div>
+    <div class="body">
     <div class="h1">
         <h1>My Fantasy Team</h1>
     </div>
@@ -47,11 +51,17 @@
             </select>
             <div class="range">
                    <div class="range1"></div>
-                  <input type="range" min="13642" class="r1" name="threePercent">
-                   <div class="renge2"></div>
-                  <input type="range" min="24" class="r2" name="twoPercent">
-                   <div class="renge3"></div>
-                  <input type="range" min="23" class="r3" points>
+                    <input type="range" min="0" max="20000" class="r1" name="threePercent" value="0">
+                   
+                 
+                   <div class="range2"></div>
+                    <input type="range" min="0" max="100" class="r2" name="twoPercent" value="0">
+                   
+                  
+                   <div class="range3"></div>
+                    <input type="range" min="0" max="100" class="r3" name="points" value="0">
+                   
+                  
                   <button class="btnSearch" type="submit">Search Player</button>
             </div>
         </form>
@@ -68,11 +78,14 @@
                 <th>Action</th>
             </tr>
             </thead>
+            <div class="content">
             <tbody>
             <!-- Add players dynamically here -->
             </tbody>
+            </div>
         </table>
     </div>
+</div>
     
 </body>
 </html>

@@ -40,7 +40,13 @@ let pf = {
     twoPercent: 8,
     points: 10
 };
-let c;
+let c = {
+    position: "C",
+    playerName: "Player C",
+    threePercent: 2,
+    twoPercent: 6,
+    points: 5
+};
 //elements
 const p = [];
 const divPG = document.querySelector(".pg");
@@ -69,25 +75,15 @@ const saveTeam = () => {
 // function to load team from local storage
 const loadTeam = () => {
     pg = JSON.parse(localStorage.getItem("pg"));
-    const div1 = document.createElement("div");
-    div1.textContent = ` ${pg.playerName} ${pg.threePercent} ${pg.twoPercent} ${pg.points}`;
-    divPG.appendChild(div1);
     sg = JSON.parse(localStorage.getItem("sg"));
-    const div2 = document.createElement("div");
-    div2.textContent = ` ${sg.playerName} ${sg.threePercent} ${sg.twoPercent} ${sg.points}`;
-    divSG.appendChild(div2);
     sf = JSON.parse(localStorage.getItem("sf"));
-    const div3 = document.createElement("div");
-    div3.textContent = ` ${sf.playerName} ${sf.threePercent} ${sf.twoPercent} ${sf.points}`;
-    divSF.appendChild(div3);
     pf = JSON.parse(localStorage.getItem("pf"));
-    const div4 = document.createElement("div");
-    div4.textContent = ` ${pf.playerName} ${pf.threePercent} ${pf.twoPercent} ${pf.points}`;
-    divPF.appendChild(div4);
     c = JSON.parse(localStorage.getItem("c"));
-    const div5 = document.createElement("div");
-    div5.textContent = ` ${c.playerName} ${c.threePercent} ${c.twoPercent} ${c.points}`;
-    divC.appendChild(div5);
+    divPG.textContent = `${pg.playerName}  ${pg.points}  ${pg.threePercent} ${pg.twoPercent}  ${pg.points} points`;
+    divSG.textContent = `${sg.playerName}  ${sg.points}  ${sg.threePercent} ${sg.twoPercent}  ${sg.points} points`;
+    divSF.textContent = `${sf.playerName}  ${sf.points}  ${sf.threePercent} ${sf.twoPercent}  ${sf.points} points`;
+    divC.textContent = `${pf.playerName}  ${pf.points}  ${pf.threePercent} ${pf.twoPercent}  ${pf.points} points`;
+    divPF.textContent = `${c.playerName}  ${c.points}  ${c.threePercent} ${c.twoPercent}  ${c.points} points`;
 };
 // founction to get players from APIService by using mathod POST
 const getPlayers = (Player) => __awaiter(void 0, void 0, void 0, function* () {
@@ -128,11 +124,26 @@ const displayPlayers = (playersRes) => {
 };
 // function to add player to current team
 const AddPlayer = (index) => {
-    divC.textContent = "";
-    divPF.textContent = "";
-    divSG.textContent = "";
-    divPG.textContent = "";
-    divSF.textContent = "";
+    divC.innerHTML = "";
+    divPF.innerHTML = "";
+    divSG.innerHTML = "";
+    divPG.innerHTML = "";
+    divSF.innerHTML = "";
+    const h1 = document.createElement("h1");
+    h1.textContent = "Point Guard";
+    divPG.appendChild(h1);
+    const h12 = document.createElement("h1");
+    h12.textContent = "Shooting Guard";
+    divSG.appendChild(h12);
+    const h13 = document.createElement("h1");
+    h13.textContent = "Small Forward";
+    divSF.appendChild(h13);
+    const h14 = document.createElement("h1");
+    h14.textContent = "Power Forward";
+    divPF.appendChild(h14);
+    const h15 = document.createElement("h1");
+    h15.textContent = "Center";
+    divC.appendChild(h15);
     switch (p[index].position) {
         case "PG":
             pg = p[index];
@@ -151,12 +162,19 @@ const AddPlayer = (index) => {
             break;
     }
     saveTeam();
-    loadTeam();
+    // loadTeam();
 };
 // event listeners
-// range1.addEventListener("change",()=>{
-//     divRange1.textContent = range1.value
-// })
+range1.addEventListener("change", () => {
+    divRange1.textContent = range1.value;
+});
+range2.addEventListener("change", () => {
+    divRange2.textContent = range2.value;
+});
+range3.addEventListener("change", () => {
+    console.log(range1.value);
+    divRange3.textContent = range3.value;
+});
 form.addEventListener("submit", (event) => {
     event.preventDefault();
     const position = select.value;
@@ -164,19 +182,20 @@ form.addEventListener("submit", (event) => {
     const twoPercent = Number(range2.value);
     const points = Number(range3.value);
     const player = {
-        position,
-        threePercent,
-        twoPercent,
-        points,
+        position: position,
+        threePercent: threePercent,
+        twoPercent: twoPercent,
+        points: points,
     };
+    console.log(player);
     getPlayers(player);
 });
 //call founction
-// saveTeam();
+// getPlayers({
+//     position: "C",
+//     twoPercent: 20,
+//     threePercent: 20,
+//     points: 100,
+// }).then((()=>console.log(p)));
+saveTeam();
 // loadTeam();
-getPlayers({
-    position: "C",
-    twoPercent: 20,
-    threePercent: 20,
-    points: 100,
-}).then((() => console.log(p)));
