@@ -38,7 +38,7 @@
     </div>
     <div>
         <form>
-            <select class="selectPosition">
+            <select class="selectPosition" name="position">
                 <option value="PG">PG</option>
                 <option value="SG">SG</option>
                 <option value="SF">SF</option>
@@ -46,10 +46,13 @@
                 <option value="C">C</option>
             </select>
             <div class="range">
-                  <input type="range" min="13642">
-                  <input type="range" min="24">
-                  <input type="range" min="23">
-                  <button class="btnSearch">Search Player</button>
+                   <div class="range1"></div>
+                  <input type="range" min="13642" class="r1" name="threePercent">
+                   <div class="renge2"></div>
+                  <input type="range" min="24" class="r2" name="twoPercent">
+                   <div class="renge3"></div>
+                  <input type="range" min="23" class="r3" points>
+                  <button class="btnSearch" type="submit">Search Player</button>
             </div>
         </form>
     </div>
