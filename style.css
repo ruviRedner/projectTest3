@@ -8,7 +8,19 @@ body {
     height: 100vh;
     font-size: 1rem;
 }
-img{
-    max-width: 100%;
-    height: auto;
-}
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table, th, td {
+    border: 1px solid black;
+
+  }
+  
+  th {
+    padding: 10px;
+    text-align: left;
+    color:#2ECC71;
+    background-color: white;
+  }

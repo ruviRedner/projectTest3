@@ -3,11 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>NBA</title>
     <link rel="stylesheet" href="style.css">
     <script src="/js/app.js" defer></script>
 </head>
 <body>
+    <div class="h1">
+        <h1>My Fantasy Team</h1>
+    </div>
+    <div class="team">
+        <div class="pg">
+            <h1 class="h1P">Point Guard</h1>
+        </div>
+        <div class="sg">
+            <h1 class="h1sg">
+                Shooting Guard
+            </h1>
+        </div>
+        <div class="sf">
+            <h1 class="h1sf"></h1>
+                Small Forward
+            </h1>
+        </div>
+        <div class="pf">
+            <h1 class="h1pf"></h1>
+                Power Forward
+            </h1>
+        </div>
+        <div class="c">
+            <h1 class="h1c"></h1>
+                Center
+            </h1>
+        </div>
+    </div>
+    <div>
+        <form>
+            <select class="selectPosition">
+                <option value="PG">PG</option>
+                <option value="SG">SG</option>
+                <option value="SF">SF</option>
+                <option value="PF">PF</option>
+                <option value="C">C</option>
+            </select>
+            <div class="range">
+                  <input type="range" min="13642">
+                  <input type="range" min="24">
+                  <input type="range" min="23">
+                  <button class="btnSearch">Search Player</button>
+            </div>
+        </form>
+    </div>
+    <div class="Ptable">
+        <table id="table">
+            <thead>
+            <tr>
+                <th>Player</th>
+                <th>Position</th>
+                <th>Points</th>
+                <th>FG%</th>
+                <th>3P%</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Add players dynamically here -->
+            </tbody>
+        </table>
+    </div>
     
 </body>
 </html>
