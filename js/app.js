@@ -82,8 +82,8 @@ const loadTeam = () => {
     divPG.textContent = `${pg.playerName}  ${pg.points}  ${pg.threePercent} ${pg.twoPercent}  ${pg.points} points`;
     divSG.textContent = `${sg.playerName}  ${sg.points}  ${sg.threePercent} ${sg.twoPercent}  ${sg.points} points`;
     divSF.textContent = `${sf.playerName}  ${sf.points}  ${sf.threePercent} ${sf.twoPercent}  ${sf.points} points`;
-    divC.textContent = `${pf.playerName}  ${pf.points}  ${pf.threePercent} ${pf.twoPercent}  ${pf.points} points`;
-    divPF.textContent = `${c.playerName}  ${c.points}  ${c.threePercent} ${c.twoPercent}  ${c.points} points`;
+    divC.textContent = `${c.playerName}  ${c.points}  ${c.threePercent} ${c.twoPercent}  ${c.points} points`;
+    divPF.textContent = `${pf.playerName}  ${pf.points}  ${pf.threePercent} ${pf.twoPercent}  ${pf.points} points`;
 };
 // founction to get players from APIService by using mathod POST
 const getPlayers = (Player) => __awaiter(void 0, void 0, void 0, function* () {
@@ -162,7 +162,7 @@ const AddPlayer = (index) => {
             break;
     }
     saveTeam();
-    // loadTeam();
+    loadTeam();
 };
 // event listeners
 range1.addEventListener("change", () => {
