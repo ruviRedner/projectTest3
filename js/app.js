@@ -12,48 +12,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var _a;
 // Variables used
 const BaseUrl = "https://nbaserver-q21u.onrender.com/";
-let pg = {
-    position: "PG",
-    playerName: "Player G",
-    threePercent: 10,
-    twoPercent: 15,
-    points: 25
-};
-let sg = {
-    position: "SG",
-    playerName: "Player S",
-    threePercent: 8,
-    twoPercent: 12,
-    points: 20
-};
-let sf = {
-    position: "SF",
-    playerName: "Player F",
-    threePercent: 6,
-    twoPercent: 10,
-    points: 15
-};
-let pf = {
-    position: "PF",
-    playerName: "Player F",
-    threePercent: 4,
-    twoPercent: 8,
-    points: 10
-};
-let c = {
-    position: "C",
-    playerName: "Player C",
-    threePercent: 2,
-    twoPercent: 6,
-    points: 5
-};
+let team = {};
 //elements
-const p = [];
 const divPG = document.querySelector(".pg");
 const divSG = document.querySelector(".sg");
 const divSF = document.querySelector(".sf");
 const divPF = document.querySelector(".pf");
 const divC = document.querySelector(".c");
+console.log(divC, divPF, divSG, divPG, divSF);
 const form = document.querySelector("form");
 const select = document.querySelector("select");
 const playersTable = (_a = document.getElementById("table")) === null || _a === void 0 ? void 0 : _a.getElementsByTagName("tbody")[0];
@@ -64,26 +30,32 @@ const range1 = document.querySelector(".r1");
 const range2 = document.querySelector(".r2");
 const range3 = document.querySelector(".r3");
 // functions
-//founction to save team in local storage
-const saveTeam = () => {
-    localStorage.setItem("pg", JSON.stringify(pg));
-    localStorage.setItem("sg", JSON.stringify(sg));
-    localStorage.setItem("sf", JSON.stringify(sf));
-    localStorage.setItem("pf", JSON.stringify(pf));
-    localStorage.setItem("c", JSON.stringify(c));
-};
 // function to load team from local storage
 const loadTeam = () => {
-    pg = JSON.parse(localStorage.getItem("pg"));
-    sg = JSON.parse(localStorage.getItem("sg"));
-    sf = JSON.parse(localStorage.getItem("sf"));
-    pf = JSON.parse(localStorage.getItem("pf"));
-    c = JSON.parse(localStorage.getItem("c"));
-    divPG.textContent = `${pg.playerName}  ${pg.points}  ${pg.threePercent} ${pg.twoPercent}  ${pg.points} points`;
-    divSG.textContent = `${sg.playerName}  ${sg.points}  ${sg.threePercent} ${sg.twoPercent}  ${sg.points} points`;
-    divSF.textContent = `${sf.playerName}  ${sf.points}  ${sf.threePercent} ${sf.twoPercent}  ${sf.points} points`;
-    divC.textContent = `${c.playerName}  ${c.points}  ${c.threePercent} ${c.twoPercent}  ${c.points} points`;
-    divPF.textContent = `${pf.playerName}  ${pf.points}  ${pf.threePercent} ${pf.twoPercent}  ${pf.points} points`;
+    const savedTeam = localStorage.getItem("team");
+    if (savedTeam) {
+        team = JSON.parse(savedTeam);
+        Object.keys(team).forEach(pos => {
+            switch (pos) {
+                case "PG":
+                    divPG.innerHTML = `<h1>Point Guard</h1>${team[pos].playerName}threePersent:${team[pos].threePercent}% twoPercent:${team[pos].twoPercent}%  points:${team[pos].points} `;
+                    // divPG.textContent = `${team[pos].playerName}  ${team[pos].points}  ${team[pos].threePercent} ${team[pos].twoPercent}  ${team[pos].points} `;
+                    break;
+                case "SG":
+                    divSG.innerHTML = `<h1>Shooting Guard</h1>${team[pos].playerName}threePersent:${team[pos].threePercent}% twoPercent:${team[pos].twoPercent}%  points:${team[pos].points} `;
+                    break;
+                case "SF":
+                    divSF.innerHTML = `<h1>Small Forward</h1>${team[pos].playerName}threePersent:${team[pos].threePercent}% twoPercent:${team[pos].twoPercent}%  points:${team[pos].points} `;
+                    break;
+                case "PF":
+                    divPF.innerHTML = `<h1>Power Forward</h1>${team[pos].playerName}threePersent:${team[pos].threePercent}% twoPercent:${team[pos].twoPercent}%  points:${team[pos].points} `;
+                    break;
+                case "C":
+                    divC.innerHTML = `<h1>Center</h1>${team[pos].playerName}threePersent:${team[pos].threePercent}% twoPercent:${team[pos].twoPercent}%  points:${team[pos].points} `;
+                    break;
+            }
+        });
+    }
 };
 // founction to get players from APIService by using mathod POST
 const getPlayers = (Player) => __awaiter(void 0, void 0, void 0, function* () {
@@ -95,10 +67,8 @@ const getPlayers = (Player) => __awaiter(void 0, void 0, void 0, function* () {
             },
             body: JSON.stringify(Player),
         });
-        // console.log(Player);
         const playersRes = yield res.json();
         displayPlayers(playersRes);
-        // console.log(players);
     }
     catch (err) {
         console.error(err);
@@ -107,7 +77,6 @@ const getPlayers = (Player) => __awaiter(void 0, void 0, void 0, function* () {
 // founction to display players in the table
 const displayPlayers = (playersRes) => {
     playersTable.innerHTML = "";
-    console.log(playersRes);
     playersRes.forEach((player, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -119,50 +88,37 @@ const displayPlayers = (playersRes) => {
             <td><button onclick="AddPlayer(${index})">Add ${player.playerName} To Current Team</button></td>
         `;
         playersTable.appendChild(row);
-        p.push(player);
     });
 };
 // function to add player to current team
 const AddPlayer = (index) => {
-    divC.innerHTML = "";
-    divPF.innerHTML = "";
-    divSG.innerHTML = "";
-    divPG.innerHTML = "";
-    divSF.innerHTML = "";
-    const h1 = document.createElement("h1");
-    h1.textContent = "Point Guard";
-    divPG.appendChild(h1);
-    const h12 = document.createElement("h1");
-    h12.textContent = "Shooting Guard";
-    divSG.appendChild(h12);
-    const h13 = document.createElement("h1");
-    h13.textContent = "Small Forward";
-    divSF.appendChild(h13);
-    const h14 = document.createElement("h1");
-    h14.textContent = "Power Forward";
-    divPF.appendChild(h14);
-    const h15 = document.createElement("h1");
-    h15.textContent = "Center";
-    divC.appendChild(h15);
-    switch (p[index].position) {
+    const selectedPlayer = playersTable.rows[index].cells;
+    const player = {
+        playerName: selectedPlayer[0].textContent,
+        position: selectedPlayer[1].textContent,
+        points: parseInt(selectedPlayer[2].textContent),
+        twoPercent: parseFloat(selectedPlayer[3].textContent),
+        threePercent: parseFloat(selectedPlayer[4].textContent),
+    };
+    switch (player.position) {
         case "PG":
-            pg = p[index];
+            divPG.innerHTML = `<h1>Point Guard</h1>${player.playerName}threePersent:${player.threePercent}% twoPercent:${player.twoPercent}%  points:${player.points} `;
             break;
         case "SG":
-            sg = p[index];
+            divSG.innerHTML = `<h1>Shooting Guard</h1>${player.playerName}threePersent:${player.threePercent}% twoPercent:${player.twoPercent}%  points:${player.points} `;
             break;
         case "SF":
-            sf = p[index];
+            divSF.innerHTML = `<h1>Small Forward</h1>${player.playerName}threePersent:${player.threePercent}% twoPercent:${player.twoPercent}%  points:${player.points} `;
             break;
         case "PF":
-            pf = p[index];
+            divPF.innerHTML = `<h1>Power Forward</h1>${player.playerName}threePersent:${player.threePercent}% twoPercent:${player.twoPercent}%  points:${player.points} `;
             break;
         case "C":
-            c = p[index];
+            divC.innerHTML = `<h1>Center</h1>${player.playerName}threePersent:${player.threePercent}% twoPercent:${player.twoPercent}%  points:${player.points} `;
             break;
     }
-    saveTeam();
-    loadTeam();
+    team[player.position] = player;
+    localStorage.setItem("team", JSON.stringify(team));
 };
 // event listeners
 range1.addEventListener("change", () => {
@@ -191,11 +147,4 @@ form.addEventListener("submit", (event) => {
     getPlayers(player);
 });
 //call founction
-// getPlayers({
-//     position: "C",
-//     twoPercent: 20,
-//     threePercent: 20,
-//     points: 100,
-// }).then((()=>console.log(p)));
-saveTeam();
-// loadTeam();
+window.onload = loadTeam;
