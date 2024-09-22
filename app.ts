@@ -43,7 +43,6 @@ const loadTeam = () => {
         Object.keys(team).forEach(pos => {
             switch (pos) {
                 case "PG":divPG.innerHTML = `<h1>Point Guard</h1>${team[pos].playerName}threePersent:${team[pos].threePercent}% twoPercent:${team[pos].twoPercent}%  points:${team[pos].points} `;
-                // divPG.textContent = `${team[pos].playerName}  ${team[pos].points}  ${team[pos].threePercent} ${team[pos].twoPercent}  ${team[pos].points} `;
                 break;
                 case "SG": divSG.innerHTML = `<h1>Shooting Guard</h1>${team[pos].playerName}threePersent:${team[pos].threePercent}% twoPercent:${team[pos].twoPercent}%  points:${team[pos].points} `;
                 break;
